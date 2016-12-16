@@ -20,19 +20,22 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class requestToApi {
 
     //This is just an example
-    
     //change url and the input 
-    
     //make the correct parameters such as commandId, sensorId, unitId
-    
-    public void send() {
+    public void send(String commandId, String sensorId, String userId) {
         try {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost postRequest = new HttpPost(
-                    "http://localhost:8080/RESTfulExample/json/product/post");
+            HttpPost postRequest = new HttpPost("http://smarthomeinterface.azurewebsites.net/home/3");
 
-            StringEntity input = new StringEntity("{\"qty\":100,\"name\":\"iPad 4\"}");
+            //StringEntity input = new StringEntity("{\"qty\":100,\"name\":\"iPad 4\"}");
+//            StringEntity input = new StringEntity("{\n"
+//                    + "  \"commandId\": \"" + commandId +"\",\n"
+//                    + "  \"sensorId\": \"" + sensorId +"\",\n"
+//                    + "  \"userId\": \"" + userId +"\"\n"
+//                    + "}");
+
+            StringEntity input = new StringEntity("{\"commandId\":" + commandId +",\"sensorId\":\"" + sensorId +",\"userId\":\"" + userId +"\"}");
 
             input.setContentType("application/json");
             postRequest.setEntity(input);

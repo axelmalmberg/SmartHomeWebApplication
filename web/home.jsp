@@ -15,6 +15,9 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER TO BE ABLE TO CON
     </head>
     <body>
         <h1>Hello World!</h1>
+        <form action="homeController">
+        <input type="Submit" name="function" value="submit">
         <% %>
+        </form>
     </body>
 </html>
