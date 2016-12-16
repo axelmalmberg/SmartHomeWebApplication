@@ -35,14 +35,14 @@ public class requestToApi {
 //                    + "  \"userId\": \"" + userId +"\"\n"
 //                    + "}");
 
-            StringEntity input = new StringEntity("{\"commandId\":" + commandId +",\"sensorId\":\"" + sensorId +",\"userId\":\"" + userId +"\"}");
+            StringEntity input = new StringEntity("{\"commandId\":\"" + commandId +"\",\"sensorId\":\"" + sensorId +"\",\"userId\":\"" + userId +"\"}");
 
             input.setContentType("application/json");
             postRequest.setEntity(input);
 
             HttpResponse response = httpClient.execute(postRequest);
 
-            if (response.getStatusLine().getStatusCode() != 201) {
+            if (response.getStatusLine().getStatusCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + response.getStatusLine().getStatusCode());
             }
