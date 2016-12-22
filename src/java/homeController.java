@@ -38,10 +38,11 @@ public class homeController extends HttpServlet {
         String function = request.getParameter("function");
 
         if (function.equalsIgnoreCase("submit")) {
+            //This is just a testbutton to see if it is possible to send a request to the api for changing a lamp
+            //It is working :)
             requestToApi ra = new requestToApi();
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            ra.setStatus("260001", "1", "1");
-            System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+            String output = ra.setStatus("260001", "1", "1");
+            System.out.println(output);
         }
     }
 

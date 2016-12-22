@@ -30,35 +30,38 @@ public class loginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //THIS IS JUST SOME EXPLANITORY CODE, 
-        //IN THE FUTURE WHEN THE CLIENT PRESS SUBMIT WE WILL CHECK OFF WITH THE DATABASE
-        //AND SEE IF THE CRIDENTIALS IS CORRECT
+
+
         //IT WILL WORK WITH login.jsp
         //IF YES THE USER WILL BE SENT TO home.jsp AND THE HOMECONTROLLER WILL BE IN CHARGE
-        
-        
         response.setContentType("text/html;charset=UTF-8");
         String function = request.getParameter("function");
 
-        
-        //I have a preset password 
-        String setUser = "Test123";
-        String setPass = "Test123";
-
-        String username = request.getParameter("username");
-        String pass = request.getParameter("password");
-
+        //If statment is checking of the values in the button is changed(it does if the button is clicked)
         if (function.equalsIgnoreCase("login-info")) {
-            String userName = request.getParameter("username");
-            String password = request.getParameter("password");
 
-            //if the password is correct it will change to the Registrationpage (JSP) where you can continue with the reg
-            if (userName.equals(setUser) && password.equals(setPass)) {
+            //Here the information for the login.jsp Textfields is requested
+            String username = request.getParameter("username");
+            String pass = request.getParameter("password");
+
+            //Here we send the username and password to the API
+            //The output variable contains the respons from the API
+            requestToApi rta = new requestToApi();
+            String output = rta.logIn(username, pass);
+            System.out.println(output);
+            
+            
+            
+
+            //if the username and password is correct it will change to the Registrationpage (JSP) where you can continue with the reg
+            //IT will also send the ID of the user to the homepage so that the correct information is gathered
+            if (output.contains("id")) {             
+                String[] tmpAr = output.split(":");
+                String id = String.valueOf(tmpAr[1].charAt(0));
+                request.setAttribute("idSend", id);
                 request.getRequestDispatcher("home.jsp").forward(request, response);
 
-                
-            //If the password is wrong it will be sent to a page informing the user that he/she has done wrong and o try again
+                //If the password or username is wrong it will be sent to a page informing the user that he/she has done wrong and o try again
             } else {
                 request.setAttribute("username", username);
                 request.setAttribute("pass", pass);

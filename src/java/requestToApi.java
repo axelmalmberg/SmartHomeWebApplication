@@ -18,45 +18,50 @@ import org.apache.http.impl.client.DefaultHttpClient;
  * @author bumblebee
  */
 public class requestToApi {
+    
+    
 
     //This is just an example
-    //change url and the input 
+    //change URL and the input 
     //make the correct parameters such as commandId, sensorId, unitId
-    public void logIn(String username, String password) {
+    //if you want to make a request
+    //send the correct body in the StringEntity to send
+    //and use the correct url in the send parameter as well
+    //You can see all the example code etc at: http://smarthomeinterface.azurewebsites.net/docs/#/
+    public String logIn(String username, String password) {
+        String output2 = "";
         try {
             
             StringEntity input = new StringEntity("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
-            send(input);
+            String URL = "http://smarthomeinterface.azurewebsites.net/user/login";
+            output2 = send(input, URL);
             
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return output2;
     }
     
-    public void setStatus(String commandId, String sensorId, String userId) {
+    public String setStatus(String commandId, String sensorId, String userId) {
+        String output2 = "";
         try {
         StringEntity input = new StringEntity("{\"commandId\":\"" + commandId + "\",\"sensorId\":\"" + sensorId + "\",\"userId\":\"" + userId + "\"}");
-
-        send(input);
+        String URL = "http://smarthomeinterface.azurewebsites.net/home/3";
+        
+         output2 = send(input, URL);
         
         } catch(Exception ex) {
             ex.printStackTrace();
         }
+        return output2;
     }
 
-    public void send(StringEntity Input) {
+    public String send(StringEntity Input, String URL) {
+        String output2 = "";
         try {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost postRequest = new HttpPost("http://smarthomeinterface.azurewebsites.net/home/3");
-
-            //StringEntity input = new StringEntity("{\"qty\":100,\"name\":\"iPad 4\"}");
-//            StringEntity input = new StringEntity("{\n"
-//                    + "  \"commandId\": \"" + commandId +"\",\n"
-//                    + "  \"sensorId\": \"" + sensorId +"\",\n"
-//                    + "  \"userId\": \"" + userId +"\"\n"
-//                    + "}");
-            //StringEntity input = new StringEntity("{\"commandId\":\"" + commandId + "\",\"sensorId\":\"" + sensorId + "\",\"userId\":\"" + userId + "\"}");
+            HttpPost postRequest = new HttpPost(URL);
 
             StringEntity input = Input;
             
@@ -76,11 +81,15 @@ public class requestToApi {
             String output;
             System.out.println("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
+                output2 = output;
                 System.out.println(output);
             }
 
+            
             httpClient.getConnectionManager().shutdown();
-
+            
+            return output2;
+            
         } catch (MalformedURLException e) {
 
             e.printStackTrace();
@@ -90,6 +99,7 @@ public class requestToApi {
             e.printStackTrace();
 
         }
+        return output2;
     }
 
 }

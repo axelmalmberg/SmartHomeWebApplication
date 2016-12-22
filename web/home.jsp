@@ -17,7 +17,9 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER TO BE ABLE TO CON
         <h1>Hello World!</h1>
         <form action="homeController">
         <input type="Submit" name="function" value="submit">
-        <% %>
+        <% 
+        out.print("YOUR ID IS:" + request.getAttribute("idSend"));
+        %>
         </form>
     </body>
 </html>
