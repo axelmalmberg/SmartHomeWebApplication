@@ -22,7 +22,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <input type="text" name="serverName"><br><br>
             User ID:
             <input type="text" name="userID"><br><br>
-            <input type="submit" name="Submit">
+            <input type="submit" name="Submit"><br><br>
         </form>
 
         <form action="AddRoom">
@@ -32,7 +32,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <input type="text" name="roomName"><br><br>
             Server ID:
             <input type="text" name="serverID"><br><br>
-            <input type="submit" name="Submit">
+            <input type="submit" name="Submit"><br><br>
         </form>
 
         <form action="AddDevice">
@@ -42,7 +42,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <input type="text" name="deviceName"><br><br>
             Room Id:
             <input type="text" name="roomID"><br><br>
-            <input type="submit" name="Submit">
+            <input type="submit" name="Submit"><br><br>
         </form>
 
         <form action="AddSensor">
@@ -54,7 +54,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <input type="text" name="sensorType"><br><br>
             Device ID:
             <input type="text" name="deviceID"><br><br>
-            <input type="submit" name="Submit">
+            <input type="submit" name="Submit"><br><br>
         </form>
 
     </body>
