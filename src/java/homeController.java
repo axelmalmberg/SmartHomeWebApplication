@@ -40,7 +40,7 @@ public class homeController extends HttpServlet {
         if (function.equalsIgnoreCase("submit")) {
             requestToApi ra = new requestToApi();
             System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            ra.send("260001", "1", "1");
+            ra.setStatus("260001", "1", "1");
             System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         }
     }

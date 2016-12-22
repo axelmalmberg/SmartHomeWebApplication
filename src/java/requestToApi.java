@@ -22,7 +22,29 @@ public class requestToApi {
     //This is just an example
     //change url and the input 
     //make the correct parameters such as commandId, sensorId, unitId
-    public void send(String commandId, String sensorId, String userId) {
+    public void logIn(String username, String password) {
+        try {
+            
+            StringEntity input = new StringEntity("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");
+            send(input);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void setStatus(String commandId, String sensorId, String userId) {
+        try {
+        StringEntity input = new StringEntity("{\"commandId\":\"" + commandId + "\",\"sensorId\":\"" + sensorId + "\",\"userId\":\"" + userId + "\"}");
+
+        send(input);
+        
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void send(StringEntity Input) {
         try {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -34,9 +56,10 @@ public class requestToApi {
 //                    + "  \"sensorId\": \"" + sensorId +"\",\n"
 //                    + "  \"userId\": \"" + userId +"\"\n"
 //                    + "}");
+            //StringEntity input = new StringEntity("{\"commandId\":\"" + commandId + "\",\"sensorId\":\"" + sensorId + "\",\"userId\":\"" + userId + "\"}");
 
-            StringEntity input = new StringEntity("{\"commandId\":\"" + commandId +"\",\"sensorId\":\"" + sensorId +"\",\"userId\":\"" + userId +"\"}");
-
+            StringEntity input = Input;
+            
             input.setContentType("application/json");
             postRequest.setEntity(input);
 
