@@ -32,22 +32,15 @@ public class createNewHomeController extends HttpServlet {
             throws ServletException, IOException {
         
         //HERE THE FUNCTIONALITY FOR CREATING A SMART HOME IS LOCATED
-        //IF YOU WANT TO ADD A NEW LAMP ETC, IT IS DONE EHRE!
+        //IF YOU WANT TO ADD A NEW LAMP ETC, IT IS DONE !
         //IT WILL BE WORKING WITH THE createNewHome.jsp
         
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet createNewHomeController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet createNewHomeController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        //DO CODE FOR SORTING WHICH OF THE INFORMATION WILL BE ADDED 
+        //LIKE IS THE ADD DEVICE BUTTON CLICKED? THEN DO ADD DEVICE CODE
+        
+        //Code here
+       
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
