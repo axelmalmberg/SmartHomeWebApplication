@@ -30,22 +30,34 @@ public class addNewUserController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        //THE FUNCTIONALITY FOR CREATING A USER WILL BE DONE HERE
-        //IT WILL BE WORKING WITH THE addNewUser.JSP
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet addNewUserController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet addNewUserController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        //Coming to this controller through the login.jsp and loginController
+        //Code for handling new user in this controller.
+        String function = request.getParameter("function");
+
+        if (function.equalsIgnoreCase("add-info")) {
+            String user = request.getParameter("username");
+            String pass = request.getParameter("password");
+            String pass2 = request.getParameter("password2");
+
+            //ErrorMsg must not be blank. Else nullPointerException
+            String errorMsg = "Type in your information to add a user";
+            request.setAttribute("errorMsg", errorMsg);
+
+            
+            if (pass.equals(pass2)) {
+                //Do create user code!
+                
+                request.getRequestDispatcher("home.jsp").forward(request, response);
+            } else {
+                //If something faulty has happened do error code and retry again
+
+                errorMsg = "The register add new user was faulty, retry again";
+                request.setAttribute("errorMsg", errorMsg);
+                request.getRequestDispatcher("addNewUser.jsp").forward(request, response);
+
+            }
+
         }
     }
 
