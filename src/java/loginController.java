@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,9 +60,31 @@ public class loginController extends HttpServlet {
             //if the username and password is correct it will change to the Registrationpage (JSP) where you can continue with the reg
             //IT will also send the ID of the user to the homepage so that the correct information is gathered
             if (output.contains("id")) {             
-                String[] tmpAr = output.split(":");
-                String id = String.valueOf(tmpAr[1].charAt(0));
-                request.setAttribute("idSend", id);
+                String[] userIdArray = output.split(":");
+                String userId = String.valueOf(userIdArray[1].charAt(0));
+                
+                //TALK TO THE Recieve CLASS BECAUSE WE ARE USING GET COMMANDS HERE
+                //AFTER WE HAVE GOTTEN THE OUTPUT WE MAKE IT INTO A HASHMAP
+                //BEFORE GETTING THE VALUE WE WANT TO MAKE THE NEXT GET REQUEST
+                Recieve r = new Recieve();
+                String homeServerIdJsonString = r.getHomeServer(userId);
+                HashMap<String, String> homeServerIdMap = getHashmapfromJsonString(homeServerIdJsonString);
+                System.out.println(homeServerIdMap);
+                String homeServerId = homeServerIdMap.get("Homeserver_id");
+                
+                String roomIdJsonString = r.getRooms(homeServerId);
+                HashMap<String, String> roomIdMap = getHashmapfromJsonString(roomIdJsonString);
+                System.out.println(roomIdMap);
+                String roomId = roomIdMap.get("Room_id");
+                String roomName = roomIdMap.get("Room_name");
+                System.out.println(roomId);
+                
+                // THIS IS UNDER CONSTRUCTION WE NEED TO GET ALL THE INFO AND SEND TO THE NEXT JSP/SERVLET THING
+                
+                
+                //System.out.println(aux);
+                
+                request.setAttribute("idSend", userId);
                 request.getRequestDispatcher("home.jsp").forward(request, response);
 
                 //If the password or username is wrong it will be sent to a page informing the user that he/she has done wrong and o try again
@@ -71,6 +97,15 @@ public class loginController extends HttpServlet {
 
         }
 
+    }
+    
+    //THIS METHOD IS MADE SO THAT YOU CAN MAKE THE STRING INTO A MAP
+    //IT IS GOOD TO HAVE A MAP SO THAT YOU CAN GET THE VALUE FOR A SPECIFIC KEY
+    //EXAMPLE WOULD BE THAT YOU ONLY WAN THE ID
+    public HashMap getHashmapfromJsonString(String JsonString) {
+        String output = JsonString.substring(1, JsonString.length() - 1);
+        HashMap<String,String> tmpMap = new Gson().fromJson(output, new TypeToken<HashMap<String, String>>(){}.getType());
+        return tmpMap;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

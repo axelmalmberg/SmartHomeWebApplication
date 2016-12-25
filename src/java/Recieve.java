@@ -26,11 +26,42 @@ public class Recieve {
     //make it not void since we want to get something
     
     
-    public void send() {
+    public String getSensors(String deviceId) {
+        String output = "";
+        String URL = "http://smarthomeinterface.azurewebsites.net/getSensors/" + deviceId;
+        output = send(URL);       
+        return output;
+    }
+    
+    public String getDevices(String roomId) {
+        String output = "";
+        String URL = "http://smarthomeinterface.azurewebsites.net/getDevices/" + roomId;
+        output = send(URL);       
+        return output;
+    }
+    
+    
+    public String getRooms(String homeServerId) {
+        String output = "";
+        String URL = "http://smarthomeinterface.azurewebsites.net/getRooms/" + homeServerId;
+        output = send(URL);       
+        return output;
+    }
+    
+    public String getHomeServer(String userId) {
+        String output = "";     
+        String URL = "http://smarthomeinterface.azurewebsites.net/getHomeServers/" + userId;
+        output = send(URL);      
+        return output;
+    }
+    
+    
+    public String send(String URL) {
+        String output2 = "";
         try {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();
-		HttpGet getRequest = new HttpGet("http://localhost:8080/RESTfulExample/json/product/get");
+		HttpGet getRequest = new HttpGet(URL);
 		getRequest.addHeader("accept", "application/json");
 
 		HttpResponse response = httpClient.execute(getRequest);
@@ -46,11 +77,13 @@ public class Recieve {
 		String output;
 		System.out.println("Output from Server .... \n");
 		while ((output = br.readLine()) != null) {
+                        output2 = output;
 			System.out.println(output);
 		}
 
 		httpClient.getConnectionManager().shutdown();
 
+                return output2;
 	  } catch (ClientProtocolException e) {
 
 		e.printStackTrace();
@@ -59,6 +92,7 @@ public class Recieve {
 
 		e.printStackTrace();
 	  }
+        return output2;
     }
     
 }
