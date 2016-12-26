@@ -79,6 +79,16 @@ public class loginController extends HttpServlet {
                 String roomName = roomIdMap.get("Room_name");
                 System.out.println(roomId);
                 
+                String deviceIdJsonString = r.getDevices(roomId);
+                HashMap<String, String> deviceIdMap = getHashmapfromJsonString(deviceIdJsonString);
+                System.out.println(deviceIdMap);
+                String deviceId = deviceIdMap.get("Device_id");
+                
+                String sensorIdJsonString = r.getSensors(deviceId);
+                HashMap<String, String> sensorIdMap = getHashmapfromJsonString(sensorIdJsonString);
+                System.out.println(sensorIdMap);
+                String sensorId = sensorIdMap.get("Sensor_id");
+                System.out.println(sensorId);
                 // THIS IS UNDER CONSTRUCTION WE NEED TO GET ALL THE INFO AND SEND TO THE NEXT JSP/SERVLET THING
                 
                 
