@@ -81,6 +81,8 @@ public class loginController extends HttpServlet {
                     String homeServerName = homeServerIdMap.get("Server_name");
                     
                     System.out.println(homeServerId + " " + homeServerName);
+                    
+                    
                     //VARIABLES TO BE REMEMBERED
 
                     String roomIdJsonString = r.getRooms(homeServerId);
@@ -93,7 +95,7 @@ public class loginController extends HttpServlet {
                         
                         //VARIABLES TO BE REMEMBERED
                         String roomId = roomIdMap.get("Room_id");
-                        String roomName = roomIdMap.get("Room_name");
+                        String roomName = roomIdMap.get("Room_name");                        
                         
                         System.out.println(roomId + " " + roomName + " room: " + i);
                         //VARIABLES TO BE REMEMBERED
@@ -108,7 +110,7 @@ public class loginController extends HttpServlet {
                             
                             //VARIABLES TO BE REMEMBERED
                             String deviceId = deviceIdMap.get("Device_id");
-                            String deviceName = deviceIdMap.get("Device_name");
+                            String deviceName = deviceIdMap.get("Device_name");                           
                             
                             System.out.println(deviceId + " " +  deviceName + " device: " + j);
                             //VARIABLES TO BE REMEMBERED
@@ -134,6 +136,10 @@ public class loginController extends HttpServlet {
 
 
                     }
+                    
+                    
+                    
+                    
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
