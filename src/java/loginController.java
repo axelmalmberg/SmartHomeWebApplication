@@ -15,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -35,7 +37,6 @@ public class loginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         //IT WILL WORK WITH login.jsp
         //IF YES THE USER WILL BE SENT TO home.jsp AND THE HOMECONTROLLER WILL BE IN CHARGE
         response.setContentType("text/html;charset=UTF-8");
@@ -53,46 +54,97 @@ public class loginController extends HttpServlet {
             requestToApi rta = new requestToApi();
             String output = rta.logIn(username, pass);
             System.out.println(output);
-            
-            
-            
 
             //if the username and password is correct it will change to the Registrationpage (JSP) where you can continue with the reg
             //IT will also send the ID of the user to the homepage so that the correct information is gathered
-            if (output.contains("id")) {             
+            if (output.contains("id")) {
                 String[] userIdArray = output.split(":");
-                String userId = String.valueOf(userIdArray[1].charAt(0));
                 
+                //VARIABLES TO BE REMEMBERED
+                String userId = String.valueOf(userIdArray[1].charAt(0));
+                //VARIABLES TO BE REMEMBERED
+
                 //TALK TO THE Recieve CLASS BECAUSE WE ARE USING GET COMMANDS HERE
                 //AFTER WE HAVE GOTTEN THE OUTPUT WE MAKE IT INTO A HASHMAP
                 //BEFORE GETTING THE VALUE WE WANT TO MAKE THE NEXT GET REQUEST
                 Recieve r = new Recieve();
                 String homeServerIdJsonString = r.getHomeServer(userId);
-                HashMap<String, String> homeServerIdMap = getHashmapfromJsonString(homeServerIdJsonString);
-                System.out.println(homeServerIdMap);
-                String homeServerId = homeServerIdMap.get("Homeserver_id");
+
+                try {
+                    JSONArray jHomeServerArr = new JSONArray(homeServerIdJsonString);
+                    JSONObject jHomeServerObject = jHomeServerArr.getJSONObject(0);
+                    String homeServerJsonObjectString = jHomeServerObject.toString();
+                    HashMap<String, String> homeServerIdMap = getHashmapfromJsonString(homeServerJsonObjectString);
+                    
+                    //VARIABLES TO BE REMEMBERED
+                    String homeServerId = homeServerIdMap.get("Homeserver_id");
+                    String homeServerName = homeServerIdMap.get("Server_name");
+                    
+                    System.out.println(homeServerId + " " + homeServerName);
+                    //VARIABLES TO BE REMEMBERED
+
+                    String roomIdJsonString = r.getRooms(homeServerId);
+                    JSONArray jRoomArr = new JSONArray(roomIdJsonString);
+                    for (int i = 0; i < jRoomArr.length(); i++) {
+                        
+                        JSONObject jRoomObject = jRoomArr.getJSONObject(i);
+                        String roomJsonObjectString = jRoomObject.toString();
+                        HashMap<String, String> roomIdMap = getHashmapfromJsonString(roomJsonObjectString);
+                        
+                        //VARIABLES TO BE REMEMBERED
+                        String roomId = roomIdMap.get("Room_id");
+                        String roomName = roomIdMap.get("Room_name");
+                        
+                        System.out.println(roomId + " " + roomName + " room: " + i);
+                        //VARIABLES TO BE REMEMBERED
+
+                        String deviceIdJsonString = r.getDevices(roomId);
+                        JSONArray jDeviceArr = new JSONArray(deviceIdJsonString);
+                        
+                        for (int j = 0; j < jDeviceArr.length(); j++) {
+                            JSONObject jDeviceObject = jDeviceArr.getJSONObject(j);
+                            String deviceJsonObjectString = jDeviceObject.toString();
+                            HashMap<String, String> deviceIdMap = getHashmapfromJsonString(deviceJsonObjectString);
+                            
+                            //VARIABLES TO BE REMEMBERED
+                            String deviceId = deviceIdMap.get("Device_id");
+                            String deviceName = deviceIdMap.get("Device_name");
+                            
+                            System.out.println(deviceId + " " +  deviceName + " device: " + j);
+                            //VARIABLES TO BE REMEMBERED
+                            
+                            String sensorIdJsonString = r.getSensors(deviceId);
+                            JSONArray jSensorArr = new JSONArray(sensorIdJsonString);
+                            
+                            for (int k = 0; k < jSensorArr.length(); k++) {
+                                JSONObject jSensorObject = jSensorArr.getJSONObject(k);
+                                String sensorJsonObjectString = jSensorObject.toString();
+                                HashMap<String, String> sensorIdMap = getHashmapfromJsonString(sensorJsonObjectString);
+                                
+                                //VARIABLES TO BE REMEMBERED
+                                String sensorId = sensorIdMap.get("Sensor_id");
+                                String sensorType = sensorIdMap.get("Sensor_type");
+                                String sensorName = sensorIdMap.get("Sensor_name");
+                                
+                                System.out.println(sensorId + " " + sensorType + " " + sensorName + " sensor: " + k);
+                                //VARIABLES TO BE REMEMBERED
+                                
+                            }
+                        }
+
+
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
                 
-                String roomIdJsonString = r.getRooms(homeServerId);
-                HashMap<String, String> roomIdMap = getHashmapfromJsonString(roomIdJsonString);
-                System.out.println(roomIdMap);
-                String roomId = roomIdMap.get("Room_id");
-                String roomName = roomIdMap.get("Room_name");
-                System.out.println(roomId);
                 
-                String deviceIdJsonString = r.getDevices(roomId);
-                HashMap<String, String> deviceIdMap = getHashmapfromJsonString(deviceIdJsonString);
-                System.out.println(deviceIdMap);
-                String deviceId = deviceIdMap.get("Device_id");
-                
-                String sensorIdJsonString = r.getSensors(deviceId);
-                HashMap<String, String> sensorIdMap = getHashmapfromJsonString(sensorIdJsonString);
-                System.out.println(sensorIdMap);
-                String sensorId = sensorIdMap.get("Sensor_id");
-                System.out.println(sensorId);
                 // THIS IS UNDER CONSTRUCTION WE NEED TO GET ALL THE INFO AND SEND TO THE NEXT JSP/SERVLET THING
-                
-                
                 //System.out.println(aux);
+                
+                
                 
                 request.setAttribute("idSend", userId);
                 request.getRequestDispatcher("home.jsp").forward(request, response);
@@ -108,13 +160,14 @@ public class loginController extends HttpServlet {
         }
 
     }
-    
+
     //THIS METHOD IS MADE SO THAT YOU CAN MAKE THE STRING INTO A MAP
     //IT IS GOOD TO HAVE A MAP SO THAT YOU CAN GET THE VALUE FOR A SPECIFIC KEY
     //EXAMPLE WOULD BE THAT YOU ONLY WAN THE ID
     public HashMap getHashmapfromJsonString(String JsonString) {
-        String output = JsonString.substring(1, JsonString.length() - 1);
-        HashMap<String,String> tmpMap = new Gson().fromJson(output, new TypeToken<HashMap<String, String>>(){}.getType());
+        //String output = JsonString.substring(1, JsonString.length() - 1);
+        HashMap<String, String> tmpMap = new Gson().fromJson(JsonString, new TypeToken<HashMap<String, String>>() {
+        }.getType());
         return tmpMap;
     }
 
