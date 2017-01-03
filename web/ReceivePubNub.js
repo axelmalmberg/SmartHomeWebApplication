@@ -13,7 +13,10 @@ function subscribe() {
     pubnub.addListener({
         status: function(statusEvent) {
             if (statusEvent.category === "PNConnectedCategory") {
-                alert("Connected to PubNub");
+                localStorage.setItem("statusPub", "PubNub Connected LocalStorage");
+                var temp = localStorage.getItem("statusPub");
+                
+                
             }
         },
         message: function(message) {
@@ -104,9 +107,13 @@ function commandCheck(commandId, sensorId) {
             //readFireAlarmStatus       response = 0 or 1 (1=fire)
             if (value.equals("0")) {
                 //Handle Fire Off
+                localStorage.setItem("fireAlarm", "offFire");
+                console.log("offFire")
 
             } else if (value.equals("1")) {
                 //Handle Fire ON
+                localStorage.setItem("fireAlarm", "onFire");
+                console.log("offFire")
                 
 
             } else if (value.equals("X")) {
@@ -181,12 +188,14 @@ function commandCheck(commandId, sensorId) {
         } else if (commandId.equals("26000")) {
             //set indoor light      response = ack
             if (value.equals("0")) {
-                alert("light is off");
+                localStorage.setItem("light", "offLight");
+                console.log("Lights is off")
 
                 //Saving the current state to the shared prefs
                 
             } else if (value.equals("1")) {
-                alert("light is on");
+                localStorage.setItem("light", "onLight");
+                console.log("Lights is on")
 
                 //Saving the current state to the shared prefs
                 
