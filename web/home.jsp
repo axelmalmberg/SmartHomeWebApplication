@@ -40,6 +40,22 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER TO BE ABLE TO CON
         <hr>
         <p>Change device statuses</p>
         <button type="Button" id="lightButton" onclick="onClickLight(this.id)"></button>
+        <script>
+            console.log("Listener 1");
+            var resultTemp = (document.getElementById("result"));
+            console.log("Listener 2");
+            resultTemp.addEventListener("change", function() {
+                var resultLight = (resultTemp.innerHTML = localStorage.getItem("light"));
+                console.log("Listener 3");
+                console.log(resultLight);
+                console.log("Listener 4");
+                document.getElementById("lightButton").value=resultLight;
+                console.log("Listener 5");
+            });
+            
+            
+        </script>
+        
         <br><br>
         <hr>
     </body>
