@@ -6,6 +6,8 @@
 HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMARTHOME!!!!!!
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Classes.Room"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,8 +22,6 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <hr>
             Server Name:
             <input type="text" name="serverName"><br><br>
-            User ID:
-            <input type="text" name="userID"><br><br>
             <input type="submit" name="Submit"><br><br>
         </form>
 
@@ -30,8 +30,6 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <hr>
             Room Name:
             <input type="text" name="roomName"><br><br>
-            Server ID:
-            <input type="text" name="serverID"><br><br>
             <input type="submit" name="Submit"><br><br>
         </form>
 
@@ -41,7 +39,24 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             Device Name:
             <input type="text" name="deviceName"><br><br>
             Room Id:
-            <input type="text" name="roomID"><br><br>
+            <%
+                // retrieve your list from the request, with casting 
+                ArrayList<Room> list = (ArrayList<Room>) request.getAttribute("roomList");
+
+                // print the information about every category of the list
+                for (Room rooms : list) {
+                    out.println(rooms.getRoomName());
+                    out.println("  ");
+                    out.println(rooms.getRoomId());
+                    %><br><br><%
+                }
+            %> 
+
+            <select name="roomId">
+
+                <option value="1">1</option>
+
+            </select><br><br>
             <input type="submit" name="Submit"><br><br>
         </form>
 
@@ -53,7 +68,11 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             Sensor Type:
             <input type="text" name="sensorType"><br><br>
             Device ID:
-            <input type="text" name="deviceID"><br><br>
+            <select name="deviceID">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select><br><br>
             <input type="submit" name="Submit"><br><br>
         </form>
 

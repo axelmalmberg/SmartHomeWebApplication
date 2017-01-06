@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,7 +15,6 @@ public class HomeServer {
     String homeServeName;
     String homeServerId;
     String userId;
-    Room[] rooms;
     
     public void setHomeServerName(String homeServerName) {
     this.homeServeName = homeServerName;
@@ -34,12 +36,6 @@ public class HomeServer {
     }
     public String getUserId() {
         return userId;
-    }
-    public void setRoom(Room[] rooms) {
-        this.rooms = rooms;
-    }
-    public Room[] getRoom() {
-        return rooms;
     }    
 }
  

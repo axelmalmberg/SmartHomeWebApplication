@@ -1,3 +1,7 @@
+package Classes;
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +15,6 @@
 public class Room {
     String roomId;
     String roomName;
-    Device[] devices;
     
     public void setRoomId(String roomId) {
         this.roomId = roomId;
@@ -26,10 +29,5 @@ public class Room {
     public String getRoomName() {
         return roomName;
     }
-    public void setDevices(Device[] devices) {
-        this.devices = devices;
-    }
-    public Device[] getDevices() {
-        return devices;
-    }
+    
 }

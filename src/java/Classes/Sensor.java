@@ -1,3 +1,5 @@
+package Classes;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,6 +14,7 @@ public class Sensor {
     String sensorName;
     String sensorType;
     String sensorId;
+    String deviceId;
     
     public void setSensorName(String sensorName) {
         this.sensorName = sensorName;
@@ -21,6 +24,9 @@ public class Sensor {
     }
     public void setSensorId(String sensorId) {
         this.sensorId = sensorId;
+    }
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
     
     public String getSensorName() {
