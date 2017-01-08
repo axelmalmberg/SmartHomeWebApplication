@@ -5,27 +5,50 @@
  */
 
 function onClickLight(clicked_id) {
-    var lightStatus = document.getElementById("result").innerHTML = localStorage.getItem("light");
-    console.log(lightStatus)
-    if (lightStatus != null) {
-        if (lightStatus = "offLight") {
-            //do send status change    
-            
-            //change button name with the context of the button as parameter
-            document.getElementById(clicked_id).textContent = "Light On";
-        } else if (lightStatus = "onLight") {
-            //do send status change    
-            
-            //change button name with the context of the button as parameter
-            document.getElementById(clicked_id).textContent = "Light Off";
+    if (clicked_id = "indoorLightButton") {
+        var lightStatus = document.getElementById("result").innerHTML = localStorage.getItem("");
+        console.log(lightStatus)
+        if (lightStatus != null) {
+            if (lightStatus = "offLight") {
+                //do send status change    
+
+                //change button name with the context of the button as parameter
+                document.getElementById(clicked_id).textContent = "Light On";
+            } else if (lightStatus = "onLight") {
+                //do send status change    
+
+                //change button name with the context of the button as parameter
+                document.getElementById(clicked_id).textContent = "Light Off";
+            }
+        } else {
+            //Get status and set name accordingly, set localStorage light accordingly aswell
+
+            console.log("ERROR: LightStatus = Null")
         }
+        console.log(clicked_id);
     }
-    else {
-        //Get status and set name accordingly, set localStorage light accordingly aswell
-        
-        console.log("ERROR: LightStatus = Null")
+    else{
+        var lightStatus = document.getElementById("result").innerHTML = localStorage.getItem("");
+        console.log(lightStatus)
+        if (lightStatus != null) {
+            if (lightStatus = "offLight") {
+                //do send status change    
+
+                //change button name with the context of the button as parameter
+                document.getElementById(clicked_id).textContent = "Light On";
+            } else if (lightStatus = "onLight") {
+                //do send status change    
+
+                //change button name with the context of the button as parameter
+                document.getElementById(clicked_id).textContent = "Light Off";
+            }
+        } else {
+            //Get status and set name accordingly, set localStorage light accordingly aswell
+
+            console.log("ERROR: LightStatus = Null")
+        }
+        console.log(clicked_id);
     }
-    console.log(clicked_id);
 
 }
 

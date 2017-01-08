@@ -11,27 +11,15 @@ function subscribe() {
     })
 
     pubnub.addListener({
-        status: function(statusEvent) {
-            if (statusEvent.category === "PNConnectedCategory") {
-                localStorage.setItem("statusPub", "PubNub Connected LocalStorage");
-                var temp = localStorage.getItem("statusPub");
-                
-                
-            }
-        },
         message: function(message) {
-            alert("New Message!!", message);
+            console.log("New Message!!" + message.message.sensorId); 
             console.log("**** New Message Received :", message, " ****")
-            
-            var json = json.parse(message);
-            var sensorId = json.sensorId;
-            var valueId = json.value;
+
+            var sensorId = message.message.sensorId;
+            var valueId = message.message.value;
             
             commandCheck(valueId, sensorId);
             
-        },
-        presence: function(presenceEvent) {
-            // handle presence
         }
     })      
     console.log("Subscribing..");
@@ -42,201 +30,219 @@ function subscribe() {
 
 function commandCheck(commandId, sensorId) {
     var commandId = commandId;
-    log.console("PubNub Command: ", commandId );
+    console.log("PubNub Command: ", commandId );
     
     var sensorId = sensorId;
-    log.console("PubNub SensorId: ", sensorId );
+    console.log("PubNub SensorId: ", sensorId );
     
     var commandLength = commandId.length;
-    log.console("CommandLength: ", commandLength );
+    console.log("CommandLength: ", commandLength );
     
     var value = commandId.substring(5, commandLength);
     commandId = commandId.substring(0,5);
-    log.console("CommandId: ", commandId);
-    log.console("Value: ", value);
+    console.log("CommandId: ", commandId);
+    console.log("Value: ", value);
 
-    if (commandId.equals("11000")) {
+    if (commandId == "11000") {
             //readAtticTemp   response = temp
             if (value.equals("X")) {
                 // error
             } else {
                 //value will hold the temperature
+                localStorage.setItem("atticTemp", value);
             }
-        } else if (commandId.equals("11100")) {
+        } else if (commandId == "11100") {
             //setAtticTemp      response = ack
-            if (value.equals("0")) {
+            if (value == "0") {
+                localStorage.setItem("atticTemp", value);
 
-            } else if (value.equals("1")) {
+            } else if (value == "1") {
+                localStorage.setItem("atticTemp", value);
 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("12000")) {
+        } else if (commandId == "12000") {
             // readRoomTemp     response = temp
-            if (value.equals("X")) {
+            if (value == "X") {
                 // error
             } else {
-                //Send value to Home.jsp
-                //
                 //value will hold the temperature
+                localStorage.setItem("roomTemp", value);
             }
-        } else if (commandId.equals("12200")) {
+        } else if (commandId == "12200") {
             //setRoomTemp       response = ack
-            if (value.equals("0")) {
+            if (value == "0") {
+                localStorage.setItem("roomTemp", value);
 
-            } else if (value.equals("1")) {
+            } else if (value == "1") {
+                localStorage.setItem("roomTemp", value);
 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("13000")) {
+        } else if (commandId == "13000") {
             //readOutTemp       response = temp
-            if (value.equals("X")) {
+            if (value == "X") {
                 // error
             } else {
-                //value will hold the temperature
+                localStorage.setItem("outTemp", value);
             }
-        } else if (commandId.equals("14000")) {
+        } else if (commandId == "14000") {
             //readPowerCunsumption      response = power
-            if (value.equals("X")) {
+            if (value == "X") {
                 // error
             } else {
                 //value will hold the power
+                localStorage.setItem("powerConsumption", value);
             }
-        } else if (commandId.equals("15000")) {
-            //readFireAlarmStatus       response = 0 or 1 (1=fire)
-            if (value.equals("0")) {
-                //Handle Fire Off
-                localStorage.setItem("fireAlarm", "offFire");
-                console.log("offFire")
-
-            } else if (value.equals("1")) {
-                //Handle Fire ON
-                localStorage.setItem("fireAlarm", "onFire");
-                console.log("offFire")
-                
-
-            } else if (value.equals("X")) {
-                //X = error
-            }
-        } else if (commandId.equals("16000")) {
+        } else if (commandId == "16000") {
             //readBurglarAlarmStatus    response = 0 or 1 (1 = burglar)
-            if (value.equals("0")) {
+            if (value == "0") {
+                localStorage.setItem("burglarAlarm", value);
 
-            } else if (value.equals("1")) {
+            } else if (value == "1") {
+                localStorage.setItem("burglarAlarm", value);
 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("17000")) {
-            //read water leakage status     response = 0 or 1 (1 = leakage)
-            if (value.equals("0")) {
+        } else if (commandId == "17000") {
+            //setBurglarAlarm     response = 0 or 1 (1 = leakage)
+            if (value == "0") {
+                localStorage.setItem("burglarAlarm", value);
 
-            } else if (value.equals("1")) {
+            } else if (value == "1") {
+                localStorage.setItem("burglarAlarm", value);
 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("18000")) {
+        } else if (commandId == "18000") {
             //read stove status     response = status
-            if (value.equals("0")) {
+            if (value == "0") {
+                localStorage.setItem("stoveStatus", value);
+            } else if (value == "1") {
+                localStorage.setItem("stoveStatus", value);
 
-            } else if (value.equals("1")) {
-
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("19000")) {
+        } else if (commandId == "19000") {
             //read window status    response = status
-            if (value.equals("0")) {
+            if (value == "0") {
+                localStorage.setItem("windowStatus", value);
 
-            } else if (value.equals("1")) {
-
-            } else if (value.equals("X")) {
+            } else if (value == "1") {
+                localStorage.setItem("windowStatus", value);
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("21000")) {
-            //read power outage status      response = status
-            if (value.equals("0")) {
-
-            } else if (value.equals("1")) {
-
-            } else if (value.equals("X")) {
-                //X = error
-            }
-        } else if (commandId.equals("22000")) {
+        } else if (commandId == "22000") {
             //read attic fan status         response = status
-            if (value.equals("0")) {
-
-            } else if (value.equals("1")) {
-
-            } else if (value.equals("X")) {
+            if (value == "0") {
+                localStorage.setItem("atticFan", value);
+            } else if (value == "1") {
+                localStorage.setItem("atticFan", value);
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("25000")) {
-            //read indoor light status      response = status
-            if (value.equals("0")) {
+        } else if (commandId == "23000") {
+            //set attic fan status         response = status
+            if (value == "0") {
+                localStorage.setItem("atticFan", value);
+            } else if (value == "1") {
+                localStorage.setItem("atticFan", value);
+            } else if (value == "X") {
+                //X = error
+            }
+        } else if (commandId == "25000") {
+            //setAtticFan      response = status
+            if (value == "0") {
+                localStorage.setItem("indoorLight", value);
                 alert("light is off");
                 
 
-            } else if (value.equals("1")) {
+            } else if (value == "1") {
+                localStorage.setItem("indoorLight", value);
                 alert("light is on");
 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("26000")) {
+        } else if (commandId == "26000") {
             //set indoor light      response = ack
-            if (value.equals("0")) {
-                localStorage.setItem("light", "offLight");
+            if (value == "0") {
+                localStorage.setItem("indoorLight", value);
                 console.log("Lights is off")
 
                 //Saving the current state to the shared prefs
                 
-            } else if (value.equals("1")) {
-                localStorage.setItem("light", "onLight");
+            } else if (value == "1") {
+                localStorage.setItem("indoorLight", value);
                 console.log("Lights is on")
 
                 //Saving the current state to the shared prefs
                 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
 
-        } else if (commandId.equals("27000")) {
+        } else if (commandId == "27000") {
             //read outdoor light        response = status
-            if (value.equals("0")) {
+            if (value == "0") {
+                localStorage.setItem("outdoorLight", value);
 
-            } else if (value.equals("1")) {
+            } else if (value == "1") {
+                localStorage.setItem("outdoorLight", value);
 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("34000")) {
-            //read outdoor light        response = status
-            if (value.equals("0")) {
-
-            } else if (value.equals("1")) {
-
-            } else if (value.equals("X")) {
+        } else if (commandId == "28000") {
+            //set outdoor light status         response = status
+            if (value == "0") {
+                localStorage.setItem("outdoorLight", value);
+            } else if (value == "1") {
+                localStorage.setItem("outdoorLight", value);
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("35000")) {
-            //read outdoor light        response = status
-            if (value.equals("0")) {
+        } else if (commandId == "34000") {
+            //water leakage detected        response = status
+            if (value == "0") {
+                localStorage.setItem("waterLeakage", value);
+
+            } else if (value == "1") {
+                localStorage.setItem("waterLeakage", value);
+
+            } else if (value == "X") {
+                //X = error
+            }
+        } else if (commandId == "35000") {
+            //fire detetected        response = status
+            if (value == "0") {
                 //Handle fire ON
-            } else if (value.equals("1")) {
+                console.log("FIREALARMON")
+                localStorage.setItem("fireAlarm", value);
+            } else if (value == "1") {
                 //Handle fire ON
-            } else if (value.equals("X")) {
+                console.log("FIREALARMOFF")
+                localStorage.setItem("fireAlarm", value);
+            } else if (value == "X") {
                 //X = error
             }
-        } else if (commandId.equals("36000")) {
-            //read outdoor light        response = status
-            if (value.equals("0")) {
+        } else if (commandId == "36000") {
+            //burglar detected        response = status
+            if (value == "0") {
+                console.log("BURGLAROFF")
+                localStorage.setItem("burglarAlarm", value);
 
-            } else if (value.equals("1")) {
+            } else if (value == "1") {
+                console.log("BURGLARON")
+                localStorage.setItem("burglarAlarm", value);
 
-            } else if (value.equals("X")) {
+            } else if (value == "X") {
                 //X = error
             }
         }
