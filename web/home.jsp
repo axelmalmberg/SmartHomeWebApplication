@@ -50,7 +50,6 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER TO BE ABLE TO CON
         <p id="atticFanLabel">AtticFan</p><br<br>
         <p id="waterLeakageLabel">WaterLeakage</p><br<br>
         <p id="fireAlarmLabel">FireAlarm</p><br<br>
-        
         <button type="Button" id="indoorlightButton" onclick="onClickLight(this.id)"></button>
         <button type="Button" id="outdoorlightButton" onclick="onClickLight(this.id)"></button>
         

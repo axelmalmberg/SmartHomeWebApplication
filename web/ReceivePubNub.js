@@ -9,7 +9,6 @@ function subscribe() {
         publishKey : 'pub-c-f97a90e1-2aa2-4db6-aee7-6187431f9dff',
         subscribeKey : 'sub-c-57c88d10-7fe9-11e6-82db-0619f8945a4f'
     })
-
     pubnub.addListener({
         message: function(message) {
             console.log("New Message!!" + message.message.sensorId); 

@@ -33,7 +33,6 @@ function onClickLight(clicked_id) {
         if (lightStatus != null) {
             if (lightStatus = "offLight") {
                 //do send status change    
-
                 //change button name with the context of the button as parameter
                 document.getElementById(clicked_id).textContent = "Light On";
             } else if (lightStatus = "onLight") {
