@@ -12,12 +12,15 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -37,7 +40,7 @@ public class loginController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, JSONException {
 
         //IT WILL WORK WITH login.jsp
         //IF YES THE USER WILL BE SENT TO home.jsp AND THE HOMECONTROLLER WILL BE IN CHARGE
@@ -64,9 +67,14 @@ public class loginController extends HttpServlet {
             //IT will also send the ID of the user to the homepage so that the correct information is gathered
             if (output.contains("id")) {
                 String[] userIdArray = output.split(":");
+                
+                HashMap<String, String> userIdMap = getHashmapfromJsonString(output);
+                String ID = userIdMap.get("id");
+         
+                String userId = ID;
 
                 //VARIABLES TO BE REMEMBERED
-                String userId = String.valueOf(userIdArray[1].charAt(0));
+                //String userId = String.valueOf(userIdArray[1].charAt(0));
                 DataStorage datastore = new DataStorage();
                 datastore.userId = userId;
                 //VARIABLES TO BE REMEMBERED
@@ -216,7 +224,11 @@ public class loginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (JSONException ex) {
+            Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -230,7 +242,11 @@ public class loginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (JSONException ex) {
+            Logger.getLogger(loginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
