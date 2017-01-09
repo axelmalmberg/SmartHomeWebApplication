@@ -7,8 +7,8 @@
 import Classes.Sensor;
 import Classes.Device;
 import Classes.Room;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,6 +111,7 @@ public class loginController extends HttpServlet {
                         room.setRoomId(roomId);
                         room.setRoomName(roomName);
                         ds.rooms.add(room);
+                        System.out.println("Adding room to list: " + roomName);
                         rooms.add(room);
 
                         System.out.println(roomId + " " + roomName + " room: " + i);
@@ -162,15 +163,18 @@ public class loginController extends HttpServlet {
                                 System.out.println(sensorId + " " + sensorType + " " + sensorName + " sensor: " + k);
                                 //VARIABLES TO BE REMEMBERED        
 
-                                //request.setAttribute("idSend", userId);
-                                request.setAttribute("roomList", rooms);
-                                //request.setAttribute("deviceList", devices);
-                                request.getRequestDispatcher("createNewHome.jsp").forward(request, response);
+
+
 
                                 //If the password or username is wrong it will be sent to a page informing the user that he/she has done wrong and o try again
                             }
                         }
                     }
+                    //request.setAttribute("idSend", userId);
+                    request.setAttribute("roomList", rooms);
+                    request.setAttribute("deviceList", devices);
+                    request.getRequestDispatcher("createNewHome.jsp").forward(request, response);
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

@@ -8,6 +8,8 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="Classes.Room"%>
+<%@page import="Classes.Device"%>
+<%@page import="Classes.Sensor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -36,43 +38,45 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
         <form action="AddDevice">
             Add Device:
             <hr>
-            Device Name:
-            <input type="text" name="deviceName"><br><br>
-            Room Id:
             <%
                 // retrieve your list from the request, with casting 
                 ArrayList<Room> list = (ArrayList<Room>) request.getAttribute("roomList");
-
                 // print the information about every category of the list
                 for (Room rooms : list) {
                     out.println(rooms.getRoomName());
-                    out.println("  ");
+                    out.println(" has room ID:  ");
                     out.println(rooms.getRoomId());
-                    %><br><br><%
-                }
+
+            %><br><br><%                        }
             %> 
-
-            <select name="roomId">
-
-                <option value="1">1</option>
-
-            </select><br><br>
+            Device Name:
+            <input type="text" name="deviceName"><br><br>
+            Room Id: 
+            <input type="text" name="roomId">
+            <br><br>
             <input type="submit" name="Submit"><br><br>
         </form>
 
         <form action="AddSensor">
             Add Sensor:
             <hr>
+            <%
+                // retrieve your list from the request, with casting 
+                ArrayList<Device> list2 = (ArrayList<Device>) request.getAttribute("deviceList");
+                // print the information about every category of the list
+                for (Device devices: list2) {
+                    out.println(devices.getDeviceName());
+                    out.println(" has device ID:  ");
+                    out.println(devices.getDeviceId());
+
+            %><br><br><%                        }
+            %> 
             Sensor Name:
             <input type="text" name="sensorName"><br><br>
             Sensor Type:
             <input type="text" name="sensorType"><br><br>
             Device ID:
-            <select name="deviceID">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select><br><br>
+            <input type="text" name="deviceId"><br><br>
             <input type="submit" name="Submit"><br><br>
         </form>
 
