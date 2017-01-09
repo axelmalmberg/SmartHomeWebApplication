@@ -64,6 +64,8 @@ public class loginController extends HttpServlet {
 
                 //VARIABLES TO BE REMEMBERED
                 String userId = String.valueOf(userIdArray[1].charAt(0));
+                DataStorage datastore = new DataStorage();
+                datastore.userId = userId;
                 //VARIABLES TO BE REMEMBERED
 
                 //TALK TO THE Recieve CLASS BECAUSE WE ARE USING GET COMMANDS HERE

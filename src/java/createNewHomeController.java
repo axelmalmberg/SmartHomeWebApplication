@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import Classes.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -68,14 +69,37 @@ public class createNewHomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        requestToApi rta = new requestToApi();
+        DataStorage ds = new DataStorage();
         if (request.getParameter("button1") != null) {
-
+            
+            System.out.println("added HomeServer");
+            String serverName = request.getParameter("serverName");
+            System.out.println("servername: " + serverName  + " userId: " + ds.getUserId());
+            rta.addHomeServer(serverName, ds.getUserId());
         } else if (request.getParameter("button2") != null) {
-
+            System.out.println("added Room");
+            String roomName = request.getParameter("roomName");
+            HomeServer hs = new HomeServer();
+            hs = (HomeServer) ds.servers.get(0);
+            String serverId = hs.getHomeServerId();
+            
+            System.out.println("RoomName: " + roomName  + " serverid: " + serverId);
+            rta.addRoom(roomName, serverId);
+            
         } else if (request.getParameter("button3") != null) {
-
+            System.out.println("added Device");
+            
+            String deviceName = request.getParameter("deviceName");
+            String roomId = request.getParameter("roomId");
+            rta.addDevice(deviceName, roomId);
         } else if (request.getParameter("button4") != null) {
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
+            System.out.println("added Sensor");
+            String sensorName = request.getParameter("sensorName");
+            String sensorType = request.getParameter("sensorType");
+            String deviceId = request.getParameter("deviceId");
+            rta.addSensor(sensorName, sensorType, deviceId);
         }
         processRequest(request, response);
     }

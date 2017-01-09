@@ -17,7 +17,11 @@ public class DataStorage {
     public static  ArrayList<Object> rooms = new ArrayList<>();
     public static  ArrayList<Object> devices = new ArrayList<>();
     public static  ArrayList<Object> sensors = new ArrayList<>();
+    public static String userId;
     
+    public String getUserId() {
+        return userId;
+    }
     
 }
     
