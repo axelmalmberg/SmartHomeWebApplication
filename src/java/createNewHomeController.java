@@ -30,17 +30,16 @@ public class createNewHomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //HERE THE FUNCTIONALITY FOR CREATING A SMART HOME IS LOCATED
         //IF YOU WANT TO ADD A NEW LAMP ETC, IT IS DONE !
         //IT WILL BE WORKING WITH THE createNewHome.jsp
-        
         //DO CODE FOR SORTING WHICH OF THE INFORMATION WILL BE ADDED 
         //LIKE IS THE ADD DEVICE BUTTON CLICKED? THEN DO ADD DEVICE CODE
-        
         //Code here
-       
-        
+        response.setContentType("text/html;charset=UTF-8");
+        String addSensor = request.getParameter("addSemsor");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,6 +68,15 @@ public class createNewHomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (request.getParameter("button1") != null) {
+
+        } else if (request.getParameter("button2") != null) {
+
+        } else if (request.getParameter("button3") != null) {
+
+        } else if (request.getParameter("button4") != null) {
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
+        }
         processRequest(request, response);
     }
 
