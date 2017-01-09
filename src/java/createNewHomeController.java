@@ -139,7 +139,7 @@ public class createNewHomeController extends HttpServlet {
                 hs.setUserId(userId);
                 hs.setHomeServerId(homeServerId);
                 hs.setHomeServerName(homeServerName);
-                //ds.servers.add(hs);
+                ds.servers.add(hs);
                 System.out.println(homeServerId + " " + homeServerName);
 
                 //VARIABLES TO BE REMEMBERED
