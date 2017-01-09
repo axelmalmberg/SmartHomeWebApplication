@@ -11,8 +11,10 @@ and open the template in the editor.
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"><!-- Optional theme -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet"><!-- Latest compiled and minified JavaScript -->
 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
         <link href="style.css" rel="stylesheet">
 
         <title>Smart Home - HKR</title>
@@ -31,7 +33,7 @@ and open the template in the editor.
 
                             <ul class="nav masthead-nav">
                                 <li>
-                                    <a href="#">About project</a>
+                                    <a href="#" data-toggle="modal" data-target="#aboutModal">About project</a>
                                 </li>
 
 
@@ -56,6 +58,29 @@ and open the template in the editor.
                         </p>
                     </div>
 
+                    <!-- Modal -->
+                    <div id="aboutModal" class="modal fade" role="document">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="color: black;">About the project</h4>
+                                </div>
+                                <div class="modal-body" style="color: black;">
+                                    <p>Smart Home is project that was conducted by students studying Computer Science at Kristianstad University. 
+                                        The idea was a platform to control a whole house using an simple and innovative application.</p>
+                                    <p>Different technologies was used. All of the technologies which you could see underneath.</p>
+                                    <p>For the clouding we used Azure Microsoft SQL Server 201, Azure Node.js REST API and PubNub.</p>
+                                    <p>For the hardware we used Raspberry pi for the home server and using ZigBee for communication. We also used Arduinos micro controlelrs which also use ZigBee for communication.</p>
+                                    <p>The units we are using are Smart Phones using Android and a web application which we can use a broswer to access.</p>
+                                    <p>Differnt language was used. We used Python for the Raspberry pi units. Processing was used with the arduinos units. The smart phones we used was using Android and Java. Browser we are using HTML, CSS, PHP, JavaScript and Bootstrap for the front-end. The API we are using is Node.js and the database is SQL.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                     <div class="mastfoot">
                         <div class="inner">
