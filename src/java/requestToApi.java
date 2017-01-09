@@ -31,8 +31,8 @@ public class requestToApi {
         String output2 = "";
         try {
 
-            StringEntity input = new StringEntity("{\"sensorName\":\"" + sensorName + "\",\"sensorType\":\"" + sensorType + "\",\"deviceid\":\"" + deviceId + "\"}");
-            String URL = "\"http://smarthomeinterface.azurewebsites.net/addDevice";
+            StringEntity input = new StringEntity("{\"sensorName\":\"" + sensorName + "\",\"sensorType\":\"" + sensorType + "\",\"deviceId\":\"" + deviceId + "\"}");
+            String URL = "http://smarthomeinterface.azurewebsites.net/addSensor";
             output2 = send(input, URL);
 
         } catch (Exception ex) {
@@ -46,7 +46,7 @@ public class requestToApi {
         try {
 
             StringEntity input = new StringEntity("{\"roomName\":\"" + roomName + "\",\"serverId\":\"" + serverId + "\"}");
-            String URL = "\"http://smarthomeinterface.azurewebsites.net/addRoom";
+            String URL = "http://smarthomeinterface.azurewebsites.net/addRoom";
             output2 = send(input, URL);
 
         } catch (Exception ex) {
@@ -60,7 +60,7 @@ public class requestToApi {
         try {
 
             StringEntity input = new StringEntity("{\"serverName\":\"" + serverName + "\",\"userId\":\"" + userId + "\"}");
-            String URL = "\"http://smarthomeinterface.azurewebsites.net/addHomeServer";
+            String URL = "http://smarthomeinterface.azurewebsites.net/addHomeServer";
             output2 = send(input, URL);
 
         } catch (Exception ex) {
@@ -74,7 +74,7 @@ public class requestToApi {
         try {
 
             StringEntity input = new StringEntity("{\"deviceName\":\"" + deviceName + "\",\"roomId\":\"" + roomId + "\"}");
-            String URL = "\"http://smarthomeinterface.azurewebsites.net/addDevice";
+            String URL = "http://smarthomeinterface.azurewebsites.net/addDevice";
             output2 = send(input, URL);
 
         } catch (Exception ex) {

@@ -31,34 +31,33 @@ public class addNewUserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Coming to this controller through the login.jsp and loginController
-        //Code for handling new user in this controller.
-        String function = request.getParameter("function");
-
-        if (function.equalsIgnoreCase("add-info")) {
-            String user = request.getParameter("username");
-            String pass = request.getParameter("password");
-            String pass2 = request.getParameter("password2");
-
-            //ErrorMsg must not be blank. Else nullPointerException
-            String errorMsg = "Type in your information to add a user";
-            request.setAttribute("errorMsg", errorMsg);
-
-            
-            if (pass.equals(pass2)) {
-                //Do create user code!
-                
-                request.getRequestDispatcher("home.jsp").forward(request, response);
-            } else {
-                //If something faulty has happened do error code and retry again
-
-                errorMsg = "The register add new user was faulty, retry again";
-                request.setAttribute("errorMsg", errorMsg);
-                request.getRequestDispatcher("addNewUser.jsp").forward(request, response);
-
-            }
-
-        }
+//        //Coming to this controller through the login.jsp and loginController
+//        //Code for handling new user in this controller.
+//        String function = request.getParameter("function");
+//
+//        if (function.equalsIgnoreCase("add-info")) {
+//            String user = request.getParameter("username");
+//            String pass = request.getParameter("password");
+//            String pass2 = request.getParameter("password2");
+//
+//            //ErrorMsg must not be blank. Else nullPointerException
+//            String errorMsg = "Type in your information to add a user";
+//            request.setAttribute("errorMsg", errorMsg);
+//
+//            if (pass.equals(pass2)) {
+//                //Do create user code!
+//
+//                request.getRequestDispatcher("home.jsp").forward(request, response);
+//            } else {
+//                //If something faulty has happened do error code and retry again
+//
+//                errorMsg = "The register add new user was faulty, retry again";
+//                request.setAttribute("errorMsg", errorMsg);
+//                request.getRequestDispatcher("addNewUser.jsp").forward(request, response);
+//
+//            }
+//
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,7 +86,27 @@ public class addNewUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        requestToApi rta = new requestToApi();
+
+        if (request.getParameter("button1") != null) {
+            String user = request.getParameter("username");
+            String pass = request.getParameter("password");
+            String pass2 = request.getParameter("password2");
+            String email = request.getParameter("email");
+
+            if (user != null && pass != null && pass2 != null && email != null) {
+                if (pass.equals(pass2)) {
+                    rta.createUser(user, pass, email);
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+            }
+
+            request.setAttribute("username", user);
+            request.setAttribute("pass", pass);
+            request.getRequestDispatcher("BadInfo.jsp").forward(request, response);
+
+        }
+
     }
 
     /**
