@@ -44,6 +44,9 @@ public class loginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String function = request.getParameter("function");
 
+        ArrayList<Room> rooms = new ArrayList<Room>();
+        ArrayList<Object> devices = new ArrayList<>();
+        ArrayList<Object> Sensors = new ArrayList<>();
         //If statment is checking of the values in the button is changed(it does if the button is clicked)
         if (function.equalsIgnoreCase("login-info")) {
 
@@ -76,105 +79,102 @@ public class loginController extends HttpServlet {
 
                 try {
                     JSONArray jHomeServerArr = new JSONArray(homeServerIdJsonString);
-                    JSONObject jHomeServerObject = jHomeServerArr.getJSONObject(0);
-                    String homeServerJsonObjectString = jHomeServerObject.toString();
-                    HashMap<String, String> homeServerIdMap = getHashmapfromJsonString(homeServerJsonObjectString);
+                    if (jHomeServerArr.isNull(0) == false) {
+                        JSONObject jHomeServerObject = jHomeServerArr.getJSONObject(0);
+                        String homeServerJsonObjectString = jHomeServerObject.toString();
+                        HashMap<String, String> homeServerIdMap = getHashmapfromJsonString(homeServerJsonObjectString);
 
-                    ArrayList<Room> rooms = new ArrayList<Room>();
-                    ArrayList<Object> devices = new ArrayList<>();
-                    ArrayList<Object> Sensors = new ArrayList<>();
-                    DataStorage ds = new DataStorage();
-
-                    //VARIABLES TO BE REMEMBERED
-                    String homeServerId = homeServerIdMap.get("Homeserver_id");
-                    String homeServerName = homeServerIdMap.get("Server_name");
-
-                    HomeServer hs = new HomeServer();
-                    hs.setUserId(userId);
-                    hs.setHomeServerId(homeServerId);
-                    hs.setHomeServerName(homeServerName);
-                    ds.servers.add(hs);
-                    System.out.println(homeServerId + " " + homeServerName);
-
-                    //VARIABLES TO BE REMEMBERED
-                    String roomIdJsonString = r.getRooms(homeServerId);
-                    JSONArray jRoomArr = new JSONArray(roomIdJsonString);
-                    for (int i = 0; i < jRoomArr.length(); i++) {
-
-                        JSONObject jRoomObject = jRoomArr.getJSONObject(i);
-                        String roomJsonObjectString = jRoomObject.toString();
-                        HashMap<String, String> roomIdMap = getHashmapfromJsonString(roomJsonObjectString);
+                        DataStorage ds = new DataStorage();
 
                         //VARIABLES TO BE REMEMBERED
-                        String roomId = roomIdMap.get("Room_id");
-                        String roomName = roomIdMap.get("Room_name");
+                        String homeServerId = homeServerIdMap.get("Homeserver_id");
+                        String homeServerName = homeServerIdMap.get("Server_name");
 
-                        Room room = new Room();
-                        room.setRoomId(roomId);
-                        room.setRoomName(roomName);
-                        ds.rooms.add(room);
-                        System.out.println("Adding room to list: " + roomName);
-                        rooms.add(room);
+                        HomeServer hs = new HomeServer();
+                        hs.setUserId(userId);
+                        hs.setHomeServerId(homeServerId);
+                        hs.setHomeServerName(homeServerName);
+                        ds.servers.add(hs);
+                        System.out.println(homeServerId + " " + homeServerName);
 
-                        System.out.println(roomId + " " + roomName + " room: " + i);
                         //VARIABLES TO BE REMEMBERED
+                        String roomIdJsonString = r.getRooms(homeServerId);
+                        JSONArray jRoomArr = new JSONArray(roomIdJsonString);
+                        for (int i = 0; i < jRoomArr.length(); i++) {
 
-                        String deviceIdJsonString = r.getDevices(roomId);
-                        JSONArray jDeviceArr = new JSONArray(deviceIdJsonString);
-
-                        for (int j = 0; j < jDeviceArr.length(); j++) {
-                            JSONObject jDeviceObject = jDeviceArr.getJSONObject(j);
-                            String deviceJsonObjectString = jDeviceObject.toString();
-                            HashMap<String, String> deviceIdMap = getHashmapfromJsonString(deviceJsonObjectString);
+                            JSONObject jRoomObject = jRoomArr.getJSONObject(i);
+                            String roomJsonObjectString = jRoomObject.toString();
+                            HashMap<String, String> roomIdMap = getHashmapfromJsonString(roomJsonObjectString);
 
                             //VARIABLES TO BE REMEMBERED
-                            String deviceId = deviceIdMap.get("Device_id");
-                            String deviceName = deviceIdMap.get("Device_name");
+                            String roomId = roomIdMap.get("Room_id");
+                            String roomName = roomIdMap.get("Room_name");
 
-                            Device device = new Device();
-                            device.setDeviceId(deviceId);
-                            device.setDeviceName(deviceName);
-                            device.setRoomId(roomId);
-                            ds.devices.add(device);
-                            devices.add(device);
+                            Room room = new Room();
+                            room.setRoomId(roomId);
+                            room.setRoomName(roomName);
+                            ds.rooms.add(room);
+                            System.out.println("Adding room to list: " + roomName);
+                            rooms.add(room);
 
-                            System.out.println(deviceId + " " + deviceName + " device: " + j);
+                            System.out.println(roomId + " " + roomName + " room: " + i);
                             //VARIABLES TO BE REMEMBERED
 
-                            String sensorIdJsonString = r.getSensors(deviceId);
-                            JSONArray jSensorArr = new JSONArray(sensorIdJsonString);
+                            String deviceIdJsonString = r.getDevices(roomId);
+                            JSONArray jDeviceArr = new JSONArray(deviceIdJsonString);
 
-                            for (int k = 0; k < jSensorArr.length(); k++) {
-                                JSONObject jSensorObject = jSensorArr.getJSONObject(k);
-                                String sensorJsonObjectString = jSensorObject.toString();
-                                HashMap<String, String> sensorIdMap = getHashmapfromJsonString(sensorJsonObjectString);
+                            for (int j = 0; j < jDeviceArr.length(); j++) {
+                                JSONObject jDeviceObject = jDeviceArr.getJSONObject(j);
+                                String deviceJsonObjectString = jDeviceObject.toString();
+                                HashMap<String, String> deviceIdMap = getHashmapfromJsonString(deviceJsonObjectString);
 
                                 //VARIABLES TO BE REMEMBERED
-                                String sensorId = sensorIdMap.get("Sensor_id");
-                                String sensorType = sensorIdMap.get("Sensor_type");
-                                String sensorName = sensorIdMap.get("Sensor_name");
+                                String deviceId = deviceIdMap.get("Device_id");
+                                String deviceName = deviceIdMap.get("Device_name");
 
-                                Sensor sensor = new Sensor();
-                                sensor.setDeviceId(deviceId);
-                                sensor.setSensorId(sensorId);
-                                sensor.setSensorName(sensorName);
-                                sensor.setSensorType(sensorType);
-                                ds.sensors.add(sensor);
-                                Sensors.add(sensor);
+                                Device device = new Device();
+                                device.setDeviceId(deviceId);
+                                device.setDeviceName(deviceName);
+                                device.setRoomId(roomId);
+                                ds.devices.add(device);
+                                devices.add(device);
 
-                                System.out.println(sensorId + " " + sensorType + " " + sensorName + " sensor: " + k);
-                                //VARIABLES TO BE REMEMBERED        
+                                System.out.println(deviceId + " " + deviceName + " device: " + j);
+                                //VARIABLES TO BE REMEMBERED
 
+                                String sensorIdJsonString = r.getSensors(deviceId);
+                                JSONArray jSensorArr = new JSONArray(sensorIdJsonString);
 
+                                for (int k = 0; k < jSensorArr.length(); k++) {
+                                    JSONObject jSensorObject = jSensorArr.getJSONObject(k);
+                                    String sensorJsonObjectString = jSensorObject.toString();
+                                    HashMap<String, String> sensorIdMap = getHashmapfromJsonString(sensorJsonObjectString);
 
+                                    //VARIABLES TO BE REMEMBERED
+                                    String sensorId = sensorIdMap.get("Sensor_id");
+                                    String sensorType = sensorIdMap.get("Sensor_type");
+                                    String sensorName = sensorIdMap.get("Sensor_name");
 
-                                //If the password or username is wrong it will be sent to a page informing the user that he/she has done wrong and o try again
+                                    Sensor sensor = new Sensor();
+                                    sensor.setDeviceId(deviceId);
+                                    sensor.setSensorId(sensorId);
+                                    sensor.setSensorName(sensorName);
+                                    sensor.setSensorType(sensorType);
+                                    ds.sensors.add(sensor);
+                                    Sensors.add(sensor);
+
+                                    System.out.println(sensorId + " " + sensorType + " " + sensorName + " sensor: " + k);
+                                    //VARIABLES TO BE REMEMBERED        
+
+                                    //If the password or username is wrong it will be sent to a page informing the user that he/she has done wrong and o try again
+                                }
                             }
                         }
                     }
                     //request.setAttribute("idSend", userId);
                     request.setAttribute("roomList", rooms);
                     request.setAttribute("deviceList", devices);
+
                     request.getRequestDispatcher("createNewHome.jsp").forward(request, response);
 
                 } catch (Exception ex) {
