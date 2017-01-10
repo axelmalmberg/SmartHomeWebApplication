@@ -15,9 +15,13 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Smart Home - HKR</title>
     </head>
     <body> 
+        <form method="link" action="logoutprocess.jsp">
+        <input type="submit" value="Logout" align="right">
+        </form>
+        <hr>            
 
         <form action="createNewHomeController" method="post">
             Add HomeServer
