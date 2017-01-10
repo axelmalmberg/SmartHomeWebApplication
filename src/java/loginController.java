@@ -92,7 +92,7 @@ public class loginController extends HttpServlet {
                         String homeServerJsonObjectString = jHomeServerObject.toString();
                         HashMap<String, String> homeServerIdMap = getHashmapfromJsonString(homeServerJsonObjectString);
 
-                        DataStorage ds = new DataStorage();
+                        
 
                         //VARIABLES TO BE REMEMBERED
                         String homeServerId = homeServerIdMap.get("Homeserver_id");
@@ -102,7 +102,9 @@ public class loginController extends HttpServlet {
                         hs.setUserId(userId);
                         hs.setHomeServerId(homeServerId);
                         hs.setHomeServerName(homeServerName);
-                        ds.servers.add(hs);
+                        
+                        datastore.servers.add(hs);
+                        datastore.homeServerId = homeServerId;
                         System.out.println(homeServerId + " " + homeServerName);
 
                         //VARIABLES TO BE REMEMBERED
@@ -121,7 +123,7 @@ public class loginController extends HttpServlet {
                             Room room = new Room();
                             room.setRoomId(roomId);
                             room.setRoomName(roomName);
-                            ds.rooms.add(room);
+                            datastore.rooms.add(room);
                             System.out.println("Adding room to list: " + roomName);
                             rooms.add(room);
 
@@ -144,7 +146,7 @@ public class loginController extends HttpServlet {
                                 device.setDeviceId(deviceId);
                                 device.setDeviceName(deviceName);
                                 device.setRoomId(roomId);
-                                ds.devices.add(device);
+                                datastore.devices.add(device);
                                 devices.add(device);
 
                                 System.out.println(deviceId + " " + deviceName + " device: " + j);
@@ -168,7 +170,7 @@ public class loginController extends HttpServlet {
                                     sensor.setSensorId(sensorId);
                                     sensor.setSensorName(sensorName);
                                     sensor.setSensorType(sensorType);
-                                    ds.sensors.add(sensor);
+                                    datastore.sensors.add(sensor);
                                     Sensors.add(sensor);
 
                                     System.out.println(sensorId + " " + sensorType + " " + sensorName + " sensor: " + k);

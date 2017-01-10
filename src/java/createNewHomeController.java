@@ -97,9 +97,9 @@ public class createNewHomeController extends HttpServlet {
         } else if (request.getParameter("button2") != null) {
             System.out.println("added Room");
             String roomName = request.getParameter("roomName");
-            HomeServer hs = new HomeServer();
-            hs = (HomeServer) ds.servers.get(0);
-            String serverId = hs.getHomeServerId();
+            //HomeServer hs = new HomeServer();
+            //hs = (HomeServer) ds.servers.get(0);
+            String serverId = ds.getHomeServerId();
 
             System.out.println("RoomName: " + roomName + " serverid: " + serverId);
             rta.addRoom(roomName, serverId);
@@ -139,7 +139,10 @@ public class createNewHomeController extends HttpServlet {
                 hs.setUserId(userId);
                 hs.setHomeServerId(homeServerId);
                 hs.setHomeServerName(homeServerName);
+                if (ds.servers.size() < 1) {
                 ds.servers.add(hs);
+                }
+                ds.homeServerId = homeServerId;
                 System.out.println(homeServerId + " " + homeServerName);
 
                 //VARIABLES TO BE REMEMBERED

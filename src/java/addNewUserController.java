@@ -98,12 +98,16 @@ public class addNewUserController extends HttpServlet {
                 if (pass.equals(pass2)) {
                     rta.createUser(user, pass, email);
                     request.getRequestDispatcher("login.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("username", user);
+                    request.setAttribute("pass", pass);
+                    request.getRequestDispatcher("BadInfo.jsp").forward(request, response);
                 }
+            } else {
+                request.setAttribute("username", user);
+                request.setAttribute("pass", pass);
+                request.getRequestDispatcher("BadInfo.jsp").forward(request, response);
             }
-
-            request.setAttribute("username", user);
-            request.setAttribute("pass", pass);
-            request.getRequestDispatcher("BadInfo.jsp").forward(request, response);
 
         }
 
