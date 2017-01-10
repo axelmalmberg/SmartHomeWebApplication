@@ -12,7 +12,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER TO SIGN UPP!!!!!!
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Smart Home - HKR</title>
     </head>
     <body>
         <h1>Register</h1>
