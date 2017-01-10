@@ -1,7 +1,7 @@
 <%-- 
     Document   : logoutprocess
     Created on : 10-Jan-2017, 21:36:50
-    Author     : AbuIlyas
+    Author     : AbIlyas- vheyam
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
