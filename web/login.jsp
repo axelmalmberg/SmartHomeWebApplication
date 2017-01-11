@@ -88,11 +88,20 @@ and open the template in the editor.
                                             <br>
 
 
-                                            <form action="loginController" class="form-signin">
-                                                <input autofocus="" class="form-control" name="username" placeholder="Username" type="text"><br>
-                                                <input class="form-control" name="password" placeholder="Password" type="password"> <input name="function" type="hidden" value="login-info"><br>
-                                                <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
-                                            </form>
+                                          
+
+                                                    <form action="addNewUserController" method="post">
+
+
+                                                        <input class="form-control" name="username" placeholder="Username" type="text"><br>
+
+                                                        <input class="form-control" name="password" placeholder="Password" type="password"><br>
+
+        <input class="form-control" name="password2" placeholder="Re-type password" type="password"><br>
+
+        <input class="form-control" name="email" placeholder="E-mail" type="text"><br>
+        <button class="btn btn-lg btn-success btn-block" type="submit" name="button1">Register</button>
+        </form>
                                             <br>
                                             <br>
                                         </div>
