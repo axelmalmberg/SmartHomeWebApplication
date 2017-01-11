@@ -28,7 +28,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <hr>
             Server Name:
             <input type="text" name="serverName"><br><br>
-            <input type="submit" name="button1" value="button 1"><br><br>
+            <input type="submit" name="button1" value="Create Homeserver"><br><br>
         </form>
 
         <form action="createNewHomeController" method="post">
@@ -36,7 +36,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <hr>
             Room Name:
             <input type="text" name="roomName"><br><br>
-            <input type="submit" name="button2"value="button 2"><br><br>
+            <input type="submit" name="button2"value="Create Room"><br><br>
         </form>
 
         <form action="createNewHomeController" method="post">
@@ -58,7 +58,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             Room Id: 
             <input type="text" name="roomId">
             <br><br>
-            <input type="submit" name="button3"value="button 3"><br><br>
+            <input type="submit" name="button3"value="Create Device"><br><br>
         </form>
 
         <form action="createNewHomeController" method="post">
@@ -81,7 +81,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER CREATE A NEW SMAR
             <input type="text" name="sensorType"><br><br>
             Device ID:
             <input type="text" name="deviceId"><br><br>
-            <input type="submit" name="button4"value="button 4"><br><br>
+            <input type="submit" name="button4"value="Create Sensor"><br><br>
         </form>
 
     </body>
