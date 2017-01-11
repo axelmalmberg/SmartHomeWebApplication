@@ -10,14 +10,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Smart Home - HKR</title>
+              <script type="text/javascript">
+         <!--
+            function Redirect() {
+               window.location="index.html";
+            }
+            
+            document.write("You are sucessfully logged out... You will be redirected to home page in 1 sec.");
+            setTimeout('Redirect()', 1000);
+         //-->
+      </script>
     </head>
     <body>
         
         <%
             session.invalidate();
         %>
-        <h2>You are sucessfully logged out...</h2>
-        <a href="index.html">Go back to home page</a>
-        
+      
     </body>
 </html>
