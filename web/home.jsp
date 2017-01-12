@@ -16,7 +16,7 @@ HERE HTML CODE WILL BE USED TO CREATE A INTERFACE FOR THE USER TO BE ABLE TO CON
         <script src="ReceivePubNub.js" type="text/javascript"></script> 
         <script src="OnClickJs.js" type="text/javascript"></script> 
 
-        <title>Home</title>
+        <title>Smart Home - HKR</title>
 
     </head>
     <body>
